@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function VideoChat() {
   const router = useRouter();
@@ -56,7 +57,7 @@ export default function VideoChat() {
       }
       clearInterval(interval);
     };
-  }, [router, fetchOnlineUsers]);
+  }, [router, fetchOnlineUsers, localStream]);
 
   const initializeLocalStream = async () => {
     try {
@@ -137,10 +138,12 @@ export default function VideoChat() {
                     onClick={() => startCall(user)}
                   >
                     <div className="relative">
-                      <img
+                      <Image
                         src={user.avatar}
                         alt={user.username}
-                        className="w-10 h-10 rounded-full"
+                        width={40}
+                        height={40}
+                        className="rounded-full"
                       />
                       <span className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white
                         ${user.status === 'online' ? 'bg-green-500' : 'bg-gray-500'}`}
